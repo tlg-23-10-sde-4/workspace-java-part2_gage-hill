@@ -9,8 +9,10 @@
 package com.entertainment;
 
 public class Tuner {
+  // fields or properties
   private int channel = 3;  // default channel for cable and satellite customers
-  
+
+  // accessor "getter/setter" methods
   public int getChannel() {
     return this.channel;
   }
