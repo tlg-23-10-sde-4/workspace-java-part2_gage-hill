@@ -16,13 +16,14 @@ class DuckRacerTest {
         racer.win(Reward.PRIZES);
         System.out.println(racer); // toString() called
 
-        // Collections.unmodifiableCollection(rewards) -
+        // Collections.unmodifiableCollection(rewards)
         // to show the read only view to the underlying collection
         Collection<Reward> rewards = racer.getRewards();
         System.out.println(racer); // called to show 4
 
         // we can 'cheat' here, and get more rewards without actually 'winning'
-        //racer.add(Reward.PRIZES)
+        //racer.add(Reward.PRIZES);
+        //racer.add(Reward.DEBIT_CARD);
 
         // 2 more honest wins
         racer.win(Reward.DEBIT_CARD);
