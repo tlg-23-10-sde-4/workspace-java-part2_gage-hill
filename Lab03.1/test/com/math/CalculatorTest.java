@@ -15,7 +15,7 @@ import org.junit.Test;
 import static org.junit.Assert.*; // 'static' template is usually called
 
 public class CalculatorTest {
-    // fixture: business object(s) under test
+    // declare the fixture: business object(s) under test
     private Calculator calc; // 'calc' = Calculator class reference
 
     @BeforeClass // runs once - must be static - runs before any tests
@@ -32,7 +32,7 @@ public class CalculatorTest {
     public void setUp() {
         System.out.println("setUp");
 
-        calc = new Calculator(); // create a calculator class to test - instance of Calculator object
+        calc = new Calculator(); // create a calculator class to test - instance of Calculator object - every test gets a fresh new 'calc'
     }
 
     // tearDown "clean up" any methods in the @Before method
@@ -62,7 +62,7 @@ public class CalculatorTest {
     public void testAdd() {
         System.out.println("testAdd");
 
-        assertEquals(5, calc.add(1, 4));  // expected, actual --> call
+        assertEquals(5, calc.add(1, 4));  // expected, actual
     }
 }
 
