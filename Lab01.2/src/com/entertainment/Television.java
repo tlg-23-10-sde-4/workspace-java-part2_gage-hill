@@ -2,11 +2,19 @@ package com.entertainment;
 
 import java.util.Objects;
 
+/*
+ * To be 'consistent with equals', whatever fields we use for equals() and hashCode(),
+ * we MUST use those same fields for natural order.
+ *
+ * That means we'll switch to a primary sort key 'brand', and when tied on 'brand',
+ * we break the tie via a secondary sort key 'volume'.
+ */
 public class Television implements Comparable<Television> {
-    // instance variables "properties"
+    // instance variables 'properties'
     private String brand;
     private int volume;
 
+    // Television HAS-A tuner
     private final Tuner tuner = new Tuner();
 
     // constructors
@@ -18,7 +26,7 @@ public class Television implements Comparable<Television> {
         setVolume(volume);
     }
 
-    // business "action" methods
+    // business 'action' methods
     public int getCurrentChannel() {
         return tuner.getChannel();
     }
@@ -27,7 +35,7 @@ public class Television implements Comparable<Television> {
         tuner.setChannel(channel);
     }
 
-    // accessor "getter/setter" methods
+    // accessor 'getter/setter' methods
     public String getBrand() {
         return brand;
     }
@@ -53,14 +61,13 @@ public class Television implements Comparable<Television> {
 
         return getVolume() == that.getVolume() && Objects.equals(getBrand(), that.getBrand());
     }
-     */
 
     @Override
     public int hashCode() {
         return Objects.hash(getBrand(), getVolume());
     }
 
-    /*@Override
+    @Override
     public int hashCode() {
         // return getBrand().length() + getVolume();
         return Objects.hash(getBrand(), getVolume());
@@ -73,22 +80,27 @@ public class Television implements Comparable<Television> {
 
         // proceed only if "obj" is referencing a Television object
         if (obj instanceof Television) {
-
             // safely downcast "obj" to more specific reference Television
-            Television other = (Television) obj;
-
-            // do the checks: business equality is defined by brand, volume being the same
-            // is the brand the same as the other brands?
-            // is the volume the same as the other volumes?
+            else if (obj != null && (this.getClass() == obj.getClass())) {
+                Television other = (Television) obj;
+            }
             result = Objects.equals(getBrand(), other.getBrand()) &&
                     this.getVolume() == other.getVolume();
         }
         return result;
     }
-
+    /*
+     * Primary sort key 'brand' (String)
+     * Secondary sort key 'volume' (int)
+     */
     @Override
     public int compareTo(Television other) {
-        return this.getBrand().compareTo(other.getBrand());
+        int result = this.getBrand().compareTo(other.getBrand());
+
+        if (result == 0) { // tied on brand, i.e., they have the same brand
+            result = Integer.compare(this.getVolume(), other.getVolume());
+        }
+        return result;
     }
 
     // toString()
