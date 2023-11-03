@@ -1,19 +1,8 @@
-/*
- * This code is sample code, provided as-is, and we make no
- * warranties as to its correctness or suitability for any purpose.
- *
- * We hope that it's useful to you.  Enjoy.
- * Copyright LearningPatterns Inc.
- */
-
 package com.javatunes.catalog;
 
 import java.util.*;
 
-// OF COURSE THIS CLASS DOESN'T COMPILE
-// Your first job is to fulfill the contract that this class has signed.
 public class InMemoryCatalog implements Catalog {
-
     private final List<MusicItem> catalogData = new ArrayList<>(List.of(
                    /* id    title                        artist                       releaseDate  price  musicCategory */
         new MusicItem(1L,  "Diva",                      "Annie Lennox",              "1992-01-04", 13.99, MusicCategory.POP),
@@ -58,6 +47,7 @@ public class InMemoryCatalog implements Catalog {
      *    It's not just about removing redundancies - it will make the more complicated methods easier to write!
      */
 
+    /*-findById-COMPLETE----------------------------------------------------------------------------------------------*/
     @Override
     public MusicItem findById(Long id) {
         MusicItem item = null;
@@ -71,6 +61,35 @@ public class InMemoryCatalog implements Catalog {
         return item;
     }
 
+    /*findByCategory-COMPLETE-----------------------------------------------------------------------------------------*/
+    @Override
+    public Collection<MusicItem> findByCategory(MusicCategory category) {
+        Collection<MusicItem> result = new ArrayList<>();
+
+        for (MusicItem item : catalogData) {
+            if (item.getMusicCategory().equals(category)) {
+                result.add(item);
+            }
+        }
+        return result;
+    }
+
+    /*-findSelfTitled-COMPLETE----------------------------------------------------------------------------------------*/
+    public Collection<MusicItem> findSelfTitled() {
+        Collection<MusicItem> result = new ArrayList<>();
+
+        for (MusicItem item : catalogData) {
+            if (item.getTitle().equals(item.getArtist()));
+        }
+        return result;
+    }
+
+    /*-numberInGenre-COMPLETE-----------------------------------------------------------------------------------------*/
+    public int numberInGenre(MusicCategory category) {
+        return findByCategory(category).size();
+    }
+
+    /*-TODO:findByKeyword---------------------------------------------------------------------------------------------*/
     @Override
     public Collection<MusicItem> findByKeyword(String keyword) {
         Collection<MusicItem> result = new ArrayList<>();
@@ -84,44 +103,10 @@ public class InMemoryCatalog implements Catalog {
         return result;
     }
 
-    @Override
-    public Collection<MusicItem> findByCategory(MusicCategory category) {
-        Collection<MusicItem> result = new ArrayList<>();
-
-        for (MusicItem item : catalogData) {
-            if (item.getMusicCategory().equals(category)) {
-                result.add(item);
-            }
-        }
-        return result;
-    }
-
-    @Override
-    public int size() {
-        return catalogData.size();
-    }
-
-    @Override
-    public Collection<MusicItem> getAll() {
-        return null;
-    }
-
-    /**
-     * TASK: find all MusicItems where title is same as artist.
-     * For example, Madonna's first album is simply titled, "Madonna."
-     */
-
-
-    /**
-     * TASK: find all "rock" items whose price is less than or equal to the specified price.
-     */
-
-
-    /**
-     * TASK: how many items of the specified genre (MusicCategory) do we sell?
-     */
+    /*-TODO:findGenre-------------------------------------------------------------------------------------------------*/
     public int findGenre(MusicCategory category) {
         int count = 0;
+
         for (MusicItem item : catalogData) {
             if (item.getMusicCategory().equals(category)) {
                 count++;
@@ -130,6 +115,19 @@ public class InMemoryCatalog implements Catalog {
         return count;
     }
 
+    /*-TODO:size------------------------------------------------------------------------------------------------------*/
+    @Override
+    public int size() {
+        return catalogData.size();
+    }
+
+    /*-TODO:getAll----------------------------------------------------------------------------------------------------*/
+    @Override
+    public Collection<MusicItem> getAll() {
+        return null;
+    }
+
+    /*-TODO:getAveragePrice-------------------------------------------------------------------------------------------*/
     /**
      * TASK: determine average price of our low-cost, extensive catalog of music.
      */
@@ -137,28 +135,7 @@ public class InMemoryCatalog implements Catalog {
         return 0.0;
     }
 
-    /**
-     * TASK: find the cheapest item with the specified genre (MusicCategory).
-     */
-    public MusicItem findCheapByGenre() {
-        return null;
-    }
-
-    /**
-     * TASK: find the average price of items in the specified genre (MusicCategory).
-     */
-
-
-    /**
-     * TASK: are all items priced at least $10?
-     * This is a yes/no answer.
-     */
-
-
-    /**
-     * TASK: do we sell any items with the specified genre (MusicCategory)?
-     * Another yes/no answer.
-     */
+    /*-TODO:hasGenre-------------------------------------------------------------------------------------------*/
     public boolean hasGenre(MusicCategory category) {
         boolean result = false;
 
@@ -171,19 +148,36 @@ public class InMemoryCatalog implements Catalog {
         return result;
     }
 
-    /**
-     * TASK: find the titles of all "pop" items, sorted by natural order.
+    /*-TODO-----------------------------------------------------------------------------------------------------------*/
+    /*
+     * TASK:
+     * find the average price of items in the specified genre (MusicCategory).
+     */
+
+    /*-TODO-----------------------------------------------------------------------------------------------------------*/
+    /*
+     * TASK:
+     * are all items priced at least $10?
+     * This is a yes/no answer.
+     */
+
+    /*-TODO-----------------------------------------------------------------------------------------------------------*/
+    /*
+     * TASK:
+     * find the titles of all "pop" items, sorted by natural order.
      * Just the titles!
      */
 
-
-    /**
-     * TASK: find all items released in the 80s whose price is less than or equal to the specified price.
+    /*-TODO-----------------------------------------------------------------------------------------------------------*/
+    /*
+     * TASK:
+     * find all items released in the 80s whose price is less than or equal to the specified price.
      */
 
-
-    /**
-     * TASK: return a map whose keys are all the genres (categories), and each key's associated value
+    /*-TODO-----------------------------------------------------------------------------------------------------------*/
+    /*
+     * TASK:
+     * return a map whose keys are all the genres (categories), and each key's associated value
      * is a collection of items in that genre.  If there is a genre that we don't currently
      * sell, that key's associated value should be an empty collection, not null.
      */
@@ -191,6 +185,7 @@ public class InMemoryCatalog implements Catalog {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder(getClass().getSimpleName() + ": \n");
+
         for (MusicItem item: catalogData) {
             builder.append(item).append("\n");
         }

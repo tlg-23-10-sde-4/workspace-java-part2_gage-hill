@@ -15,7 +15,7 @@ public interface Catalog {
     /**
      * Returns the item with the given id, or null if not found.
      */
-    public MusicItem findById(Long id);
+    public MusicItem findById(Long id); // --> 2 test methods
 
     /**
      * Returns a collection of items that match the supplied keyword.
